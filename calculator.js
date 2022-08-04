@@ -13,10 +13,6 @@ class Calculator {
 
     updateCurrentValText() {
         document.querySelector(`#current-val`).textContent = this.val;
-        if(this.operator === '') {
-            this.prevVals = `Ans = ${this.prev}`;
-            this.updatePrevCalcsText();
-        }
     }
 
     updatePrevCalcsText() {
@@ -31,6 +27,11 @@ class Calculator {
         this.updateCurrentValText();
 
         this.awaitingInput = false;
+
+        if(this.operator === '') {
+            this.prevVals = `Ans = ${this.prev}`;
+            this.updatePrevCalcsText();
+        }
     }
 
     handleOperator(e) {
@@ -115,6 +116,8 @@ class Calculator {
     }
 
     delete() {
+        if(this.awaitingInput) return;
+        
         this.val = this.val.slice(0, this.val.length - 1);
         if(this.val.length === 0) {
             this.val = '0';
